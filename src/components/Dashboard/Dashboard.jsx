@@ -14,34 +14,34 @@ export default class Dashboard extends Component {
     super(props)
     this.state = {
       lists: [],
-      cards: []
+      cards: [],
     }
     this.addNewList = this.addNewList.bind(this)
-    this.getLists = this.getLists.bind(this);
-    this.addCard = this.addCard.bind(this);
-    this.shiftCardToList = this.shiftCardToList.bind(this);
+    this.getLists = this.getLists.bind(this)
+    this.addCard = this.addCard.bind(this)
+    this.shiftCardToList = this.shiftCardToList.bind(this)
   }
 
   componentDidMount() {
-    let list = this.getLists();
-    let cards = this.getCards();
-    this.setState({ lists: list ? list : [], cards: cards ? cards: [] })
+    let list = this.getLists()
+    let cards = this.getCards()
+    this.setState({ lists: list ? list : [], cards: cards ? cards : [] })
   }
 
   getLists() {
-    let list = sessionStorage.getItem("list");
+    let list = sessionStorage.getItem("list")
     if (list) {
-        list = JSON.parse(atob(list));
+      list = JSON.parse(atob(list))
     }
-    return list;
+    return list
   }
 
   getCards() {
-    let card = sessionStorage.getItem("card");
+    let card = sessionStorage.getItem("card")
     if (card) {
-      card = JSON.parse(atob(card));
+      card = JSON.parse(atob(card))
     }
-    return card;
+    return card
   }
 
   /**
@@ -50,40 +50,62 @@ export default class Dashboard extends Component {
    * @param {string} newList.title
    */
   addNewList(newList) {
-    const list = this.getLists() || [];
-    newList.id = list.length + 1;
-    list.push(newList);
-    sessionStorage.setItem("list", btoa(JSON.stringify(list)));
-    this.setState({ lists: list });
+    const list = this.getLists() || []
+    newList.id = list.length + 1
+    list.push(newList)
+    sessionStorage.setItem("list", btoa(JSON.stringify(list)))
+    this.setState({ lists: list })
   }
 
   addCard(card) {
-    const cards = this.getCards() || [];
-    card.id = cards.length + 1;
-    cards.push(card);
-    sessionStorage.setItem("card", btoa(JSON.stringify(cards)));
-    this.setState({ cards });
+    const cards = this.getCards() || []
+    card.id = cards.length + 1
+    cards.push(card)
+    sessionStorage.setItem("card", btoa(JSON.stringify(cards)))
+    this.setState({ cards })
   }
 
   shiftCardToList(cardId, destListId) {
-    const cards = this.getCards() || [];
-    const cardIndex = cards.findIndex((c) => c.id === +cardId);
-    cards[cardIndex].listId = destListId;;
-    sessionStorage.setItem("card", btoa(JSON.stringify(cards)));
-    this.setState({ cards });
+    const cards = this.getCards() || []
+    const cardIndex = cards.findIndex(c => c.id === +cardId)
+    cards[cardIndex].listId = destListId
+    sessionStorage.setItem("card", btoa(JSON.stringify(cards)))
+    this.setState({ cards })
   }
-  
+
   render() {
     const { lists, cards } = this.state
     return (
       <div>
-        <h2 className="text-center white fixed" style={{ width: "100%", top: "1rem", padding: "1rem 0" }}>KaamKaaj</h2>
+        <h2
+          className="text-center white fixed"
+          style={{ width: "100%", top: "1rem", padding: "1rem 0" }}
+        >
+          KaamKaaj
+        </h2>
         <div className={StyleModule.dashboard}>
           {lists.map(list => (
-            <List key={list.id} data={list} cards={cards}  addCard={this.addCard} shiftCardToList={this.shiftCardToList} />
+            <List
+              key={list.id}
+              data={list}
+              cards={cards}
+              addCard={this.addCard}
+              shiftCardToList={this.shiftCardToList}
+            />
           ))}
           <NewList addNewList={this.addNewList} />
         </div>
+        <p
+          className={"white"}
+          style={{
+            position: "fixed",
+            bottom: "0.4rem",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          Made with <span style={{ color: "red" }}>&#9829;</span> by <a style={{ color: "white" }} href="https://github.com/amirsaleem-kn/KaamKaaj" target="_blank">Amir Saleem</a>
+        </p>
       </div>
     )
   }

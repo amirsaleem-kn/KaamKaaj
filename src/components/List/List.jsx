@@ -12,7 +12,8 @@ export default ({ data, cards, addCard, shiftCardToList }) => {
     addCard({ ...card, listId })
   }
 
-  function onDrop(c) {
+  function onDrop(c, a) {
+    console.log(c, a.clientX);
     if (!c) {
       return;
     }
