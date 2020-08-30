@@ -7,10 +7,19 @@ https://master.d35z0hbseyv0sn.amplifyapp.com/
 
 ### Development Mode
 
+```shell
 npm install
+```
+```shell
 npm run dev
+```
 
 ### Production Mode
 
+```shell
 npm install
+```
+
+```shell
 npm start
+```
