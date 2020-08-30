@@ -1,0 +1,90 @@
+/**
+ * @author Amir Saleem
+ * @fileoverview Main Dashboard Component ( Root Level Component )
+ */
+
+import React, { Component } from "react"
+import StyleModule from "./Dashboard.module.scss"
+
+import NewList from "../NewList/NewList"
+import List from "../List/List"
+
+export default class Dashboard extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      lists: [],
+      cards: []
+    }
+    this.addNewList = this.addNewList.bind(this)
+    this.getLists = this.getLists.bind(this);
+    this.addCard = this.addCard.bind(this);
+    this.shiftCardToList = this.shiftCardToList.bind(this);
+  }
+
+  componentDidMount() {
+    let list = this.getLists();
+    let cards = this.getCards();
+    this.setState({ lists: list ? list : [], cards: cards ? cards: [] })
+  }
+
+  getLists() {
+    let list = sessionStorage.getItem("list");
+    if (list) {
+        list = JSON.parse(atob(list));
+    }
+    return list;
+  }
+
+  getCards() {
+    let card = sessionStorage.getItem("card");
+    if (card) {
+      card = JSON.parse(atob(card));
+    }
+    return card;
+  }
+
+  /**
+   * @description add a new list
+   * @param {object} newList
+   * @param {string} newList.title
+   */
+  addNewList(newList) {
+    const list = this.getLists() || [];
+    newList.id = list.length + 1;
+    list.push(newList);
+    sessionStorage.setItem("list", btoa(JSON.stringify(list)));
+    this.setState({ lists: list });
+  }
+
+  addCard(card) {
+    const cards = this.getCards() || [];
+    card.id = cards.length + 1;
+    cards.push(card);
+    sessionStorage.setItem("card", btoa(JSON.stringify(cards)));
+    this.setState({ cards });
+  }
+
+  shiftCardToList(cardId, destListId) {
+    const cards = this.getCards() || [];
+    const cardIndex = cards.findIndex((c) => c.id === +cardId);
+    cards[cardIndex].listId = destListId;;
+    sessionStorage.setItem("card", btoa(JSON.stringify(cards)));
+    this.setState({ cards });
+  }
+  
+  render() {
+    const { lists, cards } = this.state
+    return (
+      <div>
+        <h2 className="text-center white fixed" style={{ width: "100%", top: "1rem", padding: "1rem 0" }}>KaamKaaj</h2>
+        <div className={StyleModule.dashboard}>
+          {lists.map(list => (
+            <List key={list.id} data={list} cards={cards}  addCard={this.addCard} shiftCardToList={this.shiftCardToList} />
+          ))}
+          <NewList addNewList={this.addNewList} />
+        </div>
+      </div>
+    )
+  }
+}

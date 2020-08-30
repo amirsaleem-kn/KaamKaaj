@@ -1,0 +1,114 @@
+// @fileoverview: SCSS file for global styles
+// @author Amir Saleem
+
+body {
+    font-family: sans-serif;
+    font-size: 10px; // Now, 1rem = 10px
+    padding: 2rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background: rgb(41, 4, 63);
+    max-width: 100%;
+}
+
+h1 {
+    font-size: 2.2rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+h4 {
+    font-size: 1.6rem;
+}
+
+h5 {
+    font-size: 1.4rem;
+}
+
+h6 {
+    font-size: 1.2rem;
+}
+
+p {
+    font-size: 1rem;
+}
+
+div {
+    position: relative;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.white {
+    color: #ccc;
+}
+
+.left-1 {
+    margin-left: 1rem;
+}
+
+.top-1 {
+    margin-top: 1rem; 
+}
+
+.right-1 {
+    margin-right: 1rem;
+}
+
+.round-corners {
+    border-radius: 0.4rem;
+}
+
+.wide-2 {
+    position: relative;
+    width: 20rem;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.highlight-bg {
+    background-color: rgb(41, 4, 63) !important;
+    color: white;
+}
+
+.max-height-90 {
+    height: 78vh;
+    overflow: auto;
+}
+
+.auto-pad {
+    padding: 1rem;
+}
+
+input {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+button.btn {
+    background-color: rgb(41, 4, 63) !important;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+button.confirm {
+    
+}
+
+button.cancel {
+    background-color: crimson !important;
+}
