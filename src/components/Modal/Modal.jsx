@@ -1,8 +1,25 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import ModuleStyle from "./Modal.module.scss"
 
-export default props => (
-  <div className={ModuleStyle.modalWrapper}>
+export default (props) => {
+
+  function handleKeyUp(e) {
+    if (e.keyCode === 27) {
+      e.preventDefault();
+      props.onCancel();
+      window.removeEventListener("keyup", handleKeyUp, false);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("keyup", handleKeyUp, false);
+    return () => {
+      window.removeEventListener("keyup", handleKeyUp, false);
+    }
+  })
+
+  return (
+    <div className={ModuleStyle.modalWrapper}>
     <div className={ModuleStyle.modal}>
       {props.children}
       <div className={ModuleStyle.btnContainer}>
@@ -17,4 +34,5 @@ export default props => (
       </div>
     </div>
   </div>
-)
+  )
+}

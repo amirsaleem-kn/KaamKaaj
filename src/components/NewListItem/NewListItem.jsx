@@ -8,34 +8,47 @@ export default ({ addCard }) => {
   const [desc, setDesc] = useState("")
 
   function cancel() {
-      setDesc("");
-      toggleActionModal(false);
+    setDesc("")
+    toggleActionModal(false)
   }
 
   function addNewCard() {
-      if (!desc) {
-          alert("Please enter description");
-          return;
-      }
-      addCard({ desc });
-      toggleActionModal(false);
-      setDesc("");
+    if (!desc) {
+      alert("Please enter description")
+      return
+    }
+    addCard({ desc })
+    toggleActionModal(false)
+    setDesc("")
   }
 
   return (
     <div>
-      <Card className="top-1 round-corners highlight-bg" onClick={() => toggleActionModal(true)}>
+      <Card
+        className="top-1 round-corners highlight-bg"
+        onClick={() => toggleActionModal(true)}
+      >
         <p>+ add card</p>
       </Card>
-      { actionModal ? <Modal onCancel={cancel} onConfirm={addNewCard}>
-        <Input
-          value={desc}
-          onChange={e => setDesc(e.target.value)}
-          type="text"
-          placeholder="Enter description"
-          name="description"
-        />
-      </Modal> : null}
+      {actionModal ? (
+        <Modal onCancel={cancel} onConfirm={addNewCard}>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              addNewCard()
+            }}
+          >
+            <Input
+              autoFocus
+              value={desc}
+              onChange={e => setDesc(e.target.value)}
+              type="text"
+              placeholder="Enter description"
+              name="description"
+            />
+          </form>
+        </Modal>
+      ) : null}
     </div>
   )
 }

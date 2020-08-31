@@ -34,7 +34,9 @@ export default ({ listCount = 0, addNewList }) => {
           onCancel={cancel}
           onConfirm={addList}
         >
-          <Input value = {listTitle} onChange = {(e) => setListTitle(e.target.value)} type="text" placeholder = "Enter title" name="title"/>
+          <form onSubmit={(e) => { e.preventDefault(); addList() }}>
+            <Input autoFocus value = {listTitle} onChange = {(e) => setListTitle(e.target.value)} type="text" placeholder = "Enter title" name="title"/>
+          </form>
         </Modal>
       ) : null}
     </div>

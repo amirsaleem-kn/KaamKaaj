@@ -1,15 +1,16 @@
 # KaamKaaj - Online Task Management Tool
 
-## This project can be access online on below link:
+## Project is live on:
 https://master.d35z0hbseyv0sn.amplifyapp.com/
 
-## How to run the code
+## To run the code locally
 
 ### Development Mode
 
 ```shell
 npm install
 ```
+
 ```shell
 npm run dev
 ```
@@ -18,6 +19,10 @@ npm run dev
 
 ```shell
 npm install
+```
+
+```shell
+npm run build
 ```
 
 ```shell
