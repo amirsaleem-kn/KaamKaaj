@@ -4,11 +4,12 @@ import Card from "../Card/Card"
 import Modal from "../Modal/Modal"
 import { Draggable, Droppable } from "react-drag-and-drop"
 
-export default ({ card, listId }) => {
+export default ({ card, listId, pos, onDragEnd }) => {
   const [descModal, setDescModal] = useState(false)
+
   return (
     <div>
-      <Draggable type={"card"} data={`${card.id}`}>
+      <Draggable onDragEnd={(e) => onDragEnd(e, pos)} type={"card"} data={`${card.id}`}>
         <Card
           className="top-1 round-corners"
           onClick={() => setDescModal(true)}

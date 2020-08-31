@@ -12,8 +12,12 @@ export default ({ data, cards, addCard, shiftCardToList }) => {
     addCard({ ...card, listId })
   }
 
+  function onDragEnd(e, pos) {
+    // console.log(e.pageY)
+    // console.log(pos);
+  }
+
   function onDrop(c, a) {
-    console.log(c, a.clientX);
     if (!c) {
       return;
     }
@@ -24,7 +28,7 @@ export default ({ data, cards, addCard, shiftCardToList }) => {
 
   function renderCards() {
     const listCards = cards.filter((c) => c.listId === data.id);
-    return listCards.map((card) => <ListItem key={card.id} card={card} listId={data.id} />)
+    return listCards.map((card, index) => <ListItem onDragEnd={onDragEnd} pos={index} key={card.id} card={card} listId={data.id} />)
   }
 
   return (

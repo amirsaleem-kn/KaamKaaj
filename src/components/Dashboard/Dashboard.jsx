@@ -17,8 +17,9 @@ export default class Dashboard extends Component {
       cards: [],
     }
     this.addNewList = this.addNewList.bind(this)
-    this.getLists = this.getLists.bind(this)
+    this.setLists = this.setLists.bind(this)
     this.addCard = this.addCard.bind(this)
+    this.setCards = this.setCards.bind(this)
     this.shiftCardToList = this.shiftCardToList.bind(this)
   }
 
@@ -36,12 +37,22 @@ export default class Dashboard extends Component {
     return list
   }
 
+  setLists(list) {
+    sessionStorage.setItem("list", btoa(JSON.stringify(list)))
+    this.setState({ lists: list })
+  }
+
   getCards() {
     let card = sessionStorage.getItem("card")
     if (card) {
       card = JSON.parse(atob(card))
     }
     return card
+  }
+
+  setCards(cards) {
+    sessionStorage.setItem("card", btoa(JSON.stringify(cards)))
+    this.setState({ cards })
   }
 
   /**
@@ -53,24 +64,24 @@ export default class Dashboard extends Component {
     const list = this.getLists() || []
     newList.id = list.length + 1
     list.push(newList)
-    sessionStorage.setItem("list", btoa(JSON.stringify(list)))
-    this.setState({ lists: list })
+    this.setLists(list)
   }
 
   addCard(card) {
     const cards = this.getCards() || []
     card.id = cards.length + 1
     cards.push(card)
-    sessionStorage.setItem("card", btoa(JSON.stringify(cards)))
-    this.setState({ cards })
+    this.setCards(cards)
   }
 
   shiftCardToList(cardId, destListId) {
     const cards = this.getCards() || []
     const cardIndex = cards.findIndex(c => c.id === +cardId)
+    if (cards[cardIndex].listId  === destListId) {
+      return;
+    }
     cards[cardIndex].listId = destListId
-    sessionStorage.setItem("card", btoa(JSON.stringify(cards)))
-    this.setState({ cards })
+    this.setCards(cards)
   }
 
   render() {
@@ -104,7 +115,14 @@ export default class Dashboard extends Component {
             textAlign: "center",
           }}
         >
-          Made with <span style={{ color: "red" }}>&#9829;</span> by <a style={{ color: "white" }} href="https://github.com/amirsaleem-kn/KaamKaaj" target="_blank">Amir Saleem</a>
+          Made with <span style={{ color: "red" }}>&#9829;</span> by{" "}
+          <a
+            style={{ color: "white" }}
+            href="https://github.com/amirsaleem-kn/KaamKaaj"
+            target="_blank"
+          >
+            Amir Saleem
+          </a>
         </p>
       </div>
     )
